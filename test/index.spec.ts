@@ -1,13 +1,23 @@
-import { myPackage } from '../src';
+import * as exportList from '../src';
 
 describe('index', () => {
-  describe('myPackage', () => {
-    it('should return a string containing the message', () => {
-      const message = 'Hello';
+  describe('export', () => {
+    it('should export expected', () => {
+      expect(Object.keys(exportList).sort()).toEqual([
+        'Card',
+        'Deck',
+        'Game',
+        'findPlayableHand',
+        'games',
+      ]);
+    });
 
-      const result = myPackage(message);
-
-      expect(result).toMatch(message);
+    it('should export expected game configs', () => {
+      expect(Object.keys(exportList.games).sort()).toEqual([
+        'bids',
+        'deuces',
+        'hearts',
+      ]);
     });
   });
 });
