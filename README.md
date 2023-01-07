@@ -62,10 +62,10 @@ Lorem ipsum.
 
 [build-img]:https://github.com/jcgertig/card-games-engine/actions/workflows/release.yml/badge.svg
 [build-url]:https://github.com/jcgertig/card-games-engine/actions/workflows/release.yml
-[downloads-img]:https://img.shields.io/npm/dt/card-games-engine
-[downloads-url]:https://www.npmtrends.com/card-games-engine
-[npm-img]:https://img.shields.io/npm/v/card-games-engine
-[npm-url]:https://www.npmjs.com/package/card-games-engine
+[downloads-img]:https://img.shields.io/npm/dt/@card-games/engine
+[downloads-url]:https://www.npmtrends.com/@card-games/engine
+[npm-img]:https://img.shields.io/npm/v/@card-games/engine
+[npm-url]:https://www.npmjs.com/package/@card-games/engine
 [issues-img]:https://img.shields.io/github/issues/jcgertig/card-games-engine
 [issues-url]:https://github.com/jcgertig/card-games-engine/issues
 [codecov-img]:https://codecov.io/gh/jcgertig/card-games-engine/branch/main/graph/badge.svg
