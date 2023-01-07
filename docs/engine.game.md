@@ -59,7 +59,7 @@ export declare class Game
 |  [start](./engine.game.start.md) |  | () =&gt; "passCards" \| "start" |  |
 |  [subRoundComplete](./engine.game.subroundcomplete.md) | <code>readonly</code> | any |  |
 |  [useSubRounds](./engine.game.usesubrounds.md) | <code>readonly</code> | boolean |  |
-|  [winner](./engine.game.winner.md) | <code>readonly</code> | string \| undefined |  |
+|  [winner](./engine.game.winner.md) | <code>readonly</code> | string \| undefined | <p>The game winner id</p><p> Game</p> |
 
 ## Methods
 

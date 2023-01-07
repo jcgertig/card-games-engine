@@ -3,3 +3,4 @@
 
 npx lint-staged
 npm run gen:docs
+git add .

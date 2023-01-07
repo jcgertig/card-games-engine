@@ -4,6 +4,10 @@
 
 ## Game.winner property
 
+The game winner id
+
+ Game
+
 <b>Signature:</b>
 
 ```typescript
