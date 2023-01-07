@@ -1,4 +1,4 @@
-# @card-games-engine
+# @card-games/engine
 
 [![npm package][npm-img]][npm-url]
 [![Build Status][build-img]][build-url]
@@ -19,10 +19,24 @@ npm install @card-games/engine
 ## Usage
 
 ```ts
-import { myPackage } from '@card-games/engine';
+import { Game, games } from '@card-games/engine';
 
-myPackage('hello');
-//=> 'hello from my package'
+const game = new Game({ config: games.deuces, players: ['A', 'B', 'C', 'D'] });
+game.start();
+
+game.play(['3D']);
+game.done();
+
+game.skip();
+game.done();
+
+game.skip();
+game.done();
+
+game.skip();
+game.done();
+
+console.log("Round winner", game.roundWinner); // dependent on the player who had the 3D
 ```
 
 ## API
