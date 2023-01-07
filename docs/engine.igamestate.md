@@ -19,6 +19,6 @@ export interface IGameState
 |  [currentRoundIdx](./engine.igamestate.currentroundidx.md) |  | number |  |
 |  [playerIds](./engine.igamestate.playerids.md) |  | Array&lt;string&gt; |  |
 |  [points](./engine.igamestate.points.md) |  | Array&lt;number&gt; |  |
-|  [rounds](./engine.igamestate.rounds.md) |  | Array&lt;IGameRound&gt; |  |
+|  [rounds](./engine.igamestate.rounds.md) |  | Array&lt;[IGameRound](./engine.igameround.md)<!-- -->&gt; |  |
 |  [winner?](./engine.igamestate.winner.md) |  | number | <i>(Optional)</i> |
 

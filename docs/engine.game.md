@@ -34,7 +34,7 @@ export declare class Game
 |  [checkAllowedPlay](./engine.game.checkallowedplay.md) |  | (cards: Array&lt;string&gt;, target: [IPlayTarget](./engine.iplaytarget.md)<!-- -->, otherPlayerIdx?: number \| undefined) =&gt; boolean |  |
 |  [currentDealerIdx](./engine.game.currentdealeridx.md) | <code>readonly</code> | number |  |
 |  [currentPlayConditions](./engine.game.currentplayconditions.md) | <code>readonly</code> | [IRoundPlayConditions](./engine.iroundplayconditions.md) |  |
-|  [currentPlayerData](./engine.game.currentplayerdata.md) | <code>readonly</code> | IGamePlayer |  |
+|  [currentPlayerData](./engine.game.currentplayerdata.md) | <code>readonly</code> | [IGamePlayer](./engine.igameplayer.md) |  |
 |  [currentPlayerId](./engine.game.currentplayerid.md) | <code>readonly</code> | string |  |
 |  [currentPlayerIdx](./engine.game.currentplayeridx.md) | <code>readonly</code> | number |  |
 |  [deal](./engine.game.deal.md) |  | () =&gt; { players: string\[\]\[\]; table: string\[\]; } |  |

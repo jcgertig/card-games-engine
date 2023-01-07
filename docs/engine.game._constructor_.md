@@ -16,5 +16,5 @@ constructor(options: INewGameOptions | IGameOptions);
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  options | INewGameOptions \| IGameOptions |  |
+|  options | [INewGameOptions](./engine.inewgameoptions.md) \| [IGameOptions](./engine.igameoptions.md) |  |
 

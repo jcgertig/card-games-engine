@@ -16,12 +16,12 @@ import { Card, Deck } from './deck';
 import { pokerValue } from './pokerValue';
 import { IResolveConditional } from '../types/conditional';
 
-interface INewGameOptions {
+export interface INewGameOptions {
   config: IGameConfig;
   playerIds: Array<string>;
 }
 
-interface IGameOptions {
+export interface IGameOptions {
   options: IGameState;
 }
 
@@ -35,7 +35,7 @@ export interface IGameState {
   winner?: number;
 }
 
-interface IGamePlayer {
+export interface IGamePlayer {
   hand: Array<string>;
   played: Array<Array<string>>;
   collected: Array<Array<string>>;
@@ -46,7 +46,7 @@ interface IGamePlayer {
   context: Record<string, string | number | boolean>;
 }
 
-interface IGameRound {
+export interface IGameRound {
   deck: Deck;
   dealerIdx: number;
   turnIdx: number;
