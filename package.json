@@ -6,6 +6,7 @@
   "files": [
     "lib/**/*"
   ],
+  "private": false,
   "scripts": {
     "build": "tsc --project tsconfig.build.json",
     "clean": "rm -rf ./lib/",
