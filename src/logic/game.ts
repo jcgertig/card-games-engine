@@ -152,7 +152,7 @@ export class Game {
   private gameWinner: number | undefined;
 
   /**
-   * The game winner id
+   * The game winner playe id
    *
    * @readonly
    * @memberof Game
@@ -163,6 +163,12 @@ export class Game {
       : undefined;
   }
 
+  /**
+   * The round winner player id
+   *
+   * @readonly
+   * @memberof Game
+   */
   get roundWinner() {
     return typeof this.currentRound.winner === 'number'
       ? this.playerIds[this.currentRound.winner]
