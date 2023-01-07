@@ -11,9 +11,8 @@
   "scripts": {
     "gen:docs:extract": "npx api-extractor run -l -v",
     "gen:docs:markdown": "npx api-documenter markdown -i temp -o docs",
-    "gen:docs": "npm run clean && npm run build && npm run gen:docs:extract && npm run gen:docs:markdown && npm run clean:temp",
+    "gen:docs": "npm run clean && npm run build && npm run gen:docs:extract && npm run gen:docs:markdown && npm run clean",
     "build": "tsc --project tsconfig.build.json",
-    "clean:docs": "rm -rf ./docs/",
     "clean:temp": "rm -rf ./temp/",
     "clean:build": "rm -rf ./lib/",
     "clean": "npm run clean:build && npm run clean:temp",

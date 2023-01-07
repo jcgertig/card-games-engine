@@ -4,6 +4,9 @@
 
 ## findPlayableHand() function
 
+Returns a valid playable hand for current game user
+
+
 <b>Signature:</b>
 
 ```typescript
@@ -20,4 +23,6 @@ export declare function findPlayableHand(game: Game, target?: IPlayTarget): stri
 <b>Returns:</b>
 
 string\[\] \| null
+
+{<!-- -->(string\[\] \| null)<!-- -->}
 

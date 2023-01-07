@@ -16,7 +16,7 @@
 
 |  Function | Description |
 |  --- | --- |
-|  [findPlayableHand(game, target)](./engine.findplayablehand.md) |  |
+|  [findPlayableHand(game, target)](./engine.findplayablehand.md) | <p>Returns a valid playable hand for current game user</p> |
 
 ## Interfaces
 

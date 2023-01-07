@@ -22,6 +22,14 @@ function uniqueCombinations(input: Array<string>, len: number) {
   return [...entries.values()];
 }
 
+/**
+ * Returns a valid playable hand for current game user
+ *
+ * @export
+ * @param {Game} game
+ * @param {IPlayTarget} [target='table']
+ * @returns {(string[] | null)}
+ */
 export function findPlayableHand(
   game: Game,
   target: IPlayTarget = 'table'
