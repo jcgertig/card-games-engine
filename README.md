@@ -41,24 +41,11 @@ console.log("Round winner", game.roundWinner); // dependent on the player who ha
 
 ## API
 
-### myPackage(input, options?)
+## Packages
 
-#### input
-
-Type: `string`
-
-Lorem ipsum.
-
-#### options
-
-Type: `object`
-
-##### postfix
-
-Type: `string`
-Default: `rainbows`
-
-Lorem ipsum.
+|  Package | Description |
+|  --- | --- |
+|  [@card-games/engine](./docs/engine.md) |  |
 
 [build-img]:https://github.com/jcgertig/card-games-engine/actions/workflows/release.yml/badge.svg
 [build-url]:https://github.com/jcgertig/card-games-engine/actions/workflows/release.yml
