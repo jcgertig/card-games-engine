@@ -21,7 +21,7 @@ npm install @card-games/engine
 ```ts
 import { Game, games } from '@card-games/engine';
 
-const game = new Game({ config: games.deuces, players: ['A', 'B', 'C', 'D'] });
+const game = new Game({ config: games.deuces, playerIds: ['A', 'B', 'C', 'D'] });
 game.start();
 
 game.play(['3D']);

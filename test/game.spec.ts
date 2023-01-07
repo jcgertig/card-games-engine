@@ -26,7 +26,7 @@ describe('Game class (deuces)', () => {
     expect(getGame()).toBeInstanceOf(Game);
   });
 
-  test('should error without the minimum number of', () => {
+  test('should error without the minimum number of players', () => {
     const game = getGame();
     try {
       game.start();
