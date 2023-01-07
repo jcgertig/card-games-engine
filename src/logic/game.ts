@@ -151,6 +151,12 @@ export class Game {
   private complete = false;
   private gameWinner: number | undefined;
 
+  /**
+   * The game winner id
+   *
+   * @readonly
+   * @memberof Game
+   */
   get winner() {
     return typeof this.gameWinner === 'number'
       ? this.playerIds[this.gameWinner]
