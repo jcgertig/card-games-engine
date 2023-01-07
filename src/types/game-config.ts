@@ -61,10 +61,15 @@ export interface ISubRoundsConfig {
   collectionVisible?: boolean;
 }
 
+/**
+ * Intermediary type for ordered entries with fallback (*)
+ *
+ * even and odd bot yet supported
+ */
 export type OrderEntryConfig<T = any> = {
   '*'?: T;
-  odd?: T;
-  even?: T;
+  odd?: T; // not used yet
+  even?: T; // not used yet
   [key: string]: T | undefined; // should be a number key
 };
 

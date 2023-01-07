@@ -4,6 +4,10 @@
 
 ## OrderEntryConfig type
 
+Intermediary type for ordered entries with fallback (\*)
+
+even and odd bot yet supported
+
 <b>Signature:</b>
 
 ```typescript

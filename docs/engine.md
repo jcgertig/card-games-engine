@@ -92,7 +92,7 @@
 |  [IPureMathConditional](./engine.ipuremathconditional.md) |  |
 |  [IResolveConditional](./engine.iresolveconditional.md) |  |
 |  [IValidHands](./engine.ivalidhands.md) | Support face down cards on table / collection Support claiming colleted count with guards and turn order for claiming |
-|  [OrderEntryConfig](./engine.orderentryconfig.md) |  |
+|  [OrderEntryConfig](./engine.orderentryconfig.md) | <p>Intermediary type for ordered entries with fallback (\*)</p><p>even and odd bot yet supported</p> |
 |  [PokerCards](./engine.pokercards.md) |  |
 |  [PokerPointValueConfig](./engine.pokerpointvalueconfig.md) |  |
 |  [PokerSuits](./engine.pokersuits.md) |  |
