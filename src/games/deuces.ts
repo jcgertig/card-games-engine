@@ -12,7 +12,7 @@ const baseRoundConfig: Pick<
     direction: 'clockwise',
   },
   playerPlayConditions: {
-    hands: ['1', '2', '3', 'poker'],
+    hands: [1, 2, 3, 'poker'],
     guards: {
       condition: 'and',
       right: [
@@ -176,7 +176,7 @@ export const deuces: IGameConfig = {
           right: '3D',
         },
         firstPlayerPlayConditions: {
-          hands: ['1', '2', '3', 'poker'],
+          hands: [1, 2, 3, 'poker'],
           guards: {
             condition: 'contains',
             left: {
@@ -199,7 +199,7 @@ export const deuces: IGameConfig = {
           },
         },
         firstPlayerPlayConditions: {
-          hands: ['1', '2', '3', 'poker'],
+          hands: [1, 2, 3, 'poker'],
           guards: {
             condition: 'if',
             left: {

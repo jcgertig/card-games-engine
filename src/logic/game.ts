@@ -683,8 +683,12 @@ export class Game {
       {};
 
     if (roundConfig.newDeck || this.currentRoundIdx === 0) {
-      const deck = new Deck(this.config.deck);
-      deck.createAndShuffle(this.resolveCheck(this.config.deck?.count || 1, 0));
+      const count = this.resolveCheck(this.config.deck?.count || 1, 0);
+      const deck = new Deck({
+        ...(this.config.deck || { count, type: 'poker' }),
+        count,
+      });
+      deck.shuffle();
 
       this.rounds.push({
         deck,

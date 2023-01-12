@@ -7,5 +7,5 @@
 <b>Signature:</b>
 
 ```typescript
-play: (cards: Array<string>, target?: IPlayTarget, otherPlayerIdx?: number | undefined) => void;
+play: (cards: Array<string>, target?: IPlayTarget, otherPlayerIdx?: number) => void;
 ```

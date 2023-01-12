@@ -7,7 +7,7 @@
 <b>Signature:</b>
 
 ```typescript
-export declare type IMathConditional = IValueConditional | IPureMathConditional;
+export type IMathConditional = IValueConditional | IPureMathConditional;
 ```
 <b>References:</b> [IValueConditional](./engine.ivalueconditional.md)<!-- -->, [IPureMathConditional](./engine.ipuremathconditional.md)
 

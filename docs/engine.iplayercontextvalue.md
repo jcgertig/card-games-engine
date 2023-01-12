@@ -7,5 +7,5 @@
 <b>Signature:</b>
 
 ```typescript
-export declare type IPlayerContextValue = string | number | boolean;
+export type IPlayerContextValue = string | number | boolean;
 ```

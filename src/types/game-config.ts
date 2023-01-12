@@ -5,12 +5,25 @@ import {
 } from './conditional';
 import { IDeckConfig } from './deck-config';
 
-/**
- * Support face down cards on table / collection
- * Support claiming colleted count with guards and turn order for claiming
- */
+export type IValidHandSetStruct = {
+  kind: 'set';
+  count: number;
+  allowMore?: boolean;
+};
 
-export type IValidHands = '1' | '2' | '3' | '4' | 'poker' | 'any';
+/**
+ * Straight hand struct
+ * count must be >= 2
+ */
+export type IValidHandStraightStruct = {
+  kind: 'straight';
+  count: number;
+  allowMore?: boolean;
+  flush?: boolean;
+};
+export type IValidHandStruct = IValidHandSetStruct | IValidHandStraightStruct;
+
+export type IValidHands = 'poker' | 'any' | number | IValidHandStruct;
 
 export type INextDirection =
   | 'clockwise'
@@ -20,6 +33,10 @@ export type INextDirection =
   | 'across'
   | 'none';
 
+/**
+ * Support face down cards on table / collection
+ * Support claiming colleted count with guards and turn order for claiming
+ */
 export type IPlayTarget = 'table' | 'collection' | 'other-collection';
 
 export interface IRoundPlayCanConditions {

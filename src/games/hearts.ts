@@ -12,7 +12,7 @@ const baseRoundConfig: Pick<
     direction: 'clockwise',
   },
   playerPlayConditions: {
-    hands: ['1'],
+    hands: [1],
     guards: {
       condition: 'if',
       left: {
@@ -103,7 +103,7 @@ export const hearts: IGameConfig = {
           right: '2C',
         },
         firstPlayerPlayConditions: {
-          hands: ['1'],
+          hands: [1],
           guards: {
             condition: 'contains',
             left: {
@@ -126,7 +126,7 @@ export const hearts: IGameConfig = {
           },
         },
         firstPlayerPlayConditions: {
-          hands: ['1'],
+          hands: [1],
           guards: {
             condition: 'if',
             left: {

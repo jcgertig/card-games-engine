@@ -1,3 +1,4 @@
+import { validStraight } from './checkHand';
 import { Card } from './deck';
 
 export const handBaseValue = {
@@ -17,25 +18,11 @@ export const handBaseValue = {
 // [ '2D', '8D', '2C', '8H', '2H' ] vs [ '8C', '10C', '10H', '8S', '10D' ]
 
 function isStraight(cards: Array<Card>) {
-  const prioritySet = [...new Set(cards.map(i => i.unitPriority))].sort(
-    (a, b) => a - b
-  );
-  let lastValue = prioritySet[0] === 0 ? prioritySet[1] : prioritySet[0];
-  let idx = prioritySet[0] === 0 ? 2 : 1;
-  for (idx; idx < prioritySet.length; idx += 1) {
-    if (lastValue + 1 !== prioritySet[idx]) {
-      return false;
-    }
-    lastValue = prioritySet[idx];
-  }
-  if (prioritySet[0] === 0) {
-    if (lastValue === 12 || prioritySet[1] === 1) {
-      // if the ace wraps ie A,2,3,4,5 or A,K,Q,J,10
-      return true;
-    }
+  try {
+    return validStraight(cards);
+  } catch (err) {
     return false;
   }
-  return true;
 }
 
 export function pokerValue(cards: Array<Card>) {

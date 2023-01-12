@@ -31,7 +31,7 @@ export declare class Game
 |  [canPlay](./engine.game.canplay.md) | <code>readonly</code> | any |  |
 |  [canSkip](./engine.game.canskip.md) | <code>readonly</code> | any |  |
 |  [canStart](./engine.game.canstart.md) | <code>readonly</code> | boolean |  |
-|  [checkAllowedPlay](./engine.game.checkallowedplay.md) |  | (cards: Array&lt;string&gt;, target: [IPlayTarget](./engine.iplaytarget.md)<!-- -->, otherPlayerIdx?: number \| undefined) =&gt; boolean |  |
+|  [checkAllowedPlay](./engine.game.checkallowedplay.md) |  | (cards: Array&lt;string&gt;, target: [IPlayTarget](./engine.iplaytarget.md)<!-- -->, otherPlayerIdx?: number) =&gt; boolean |  |
 |  [currentDealerIdx](./engine.game.currentdealeridx.md) | <code>readonly</code> | number |  |
 |  [currentPlayConditions](./engine.game.currentplayconditions.md) | <code>readonly</code> | [IRoundPlayConditions](./engine.iroundplayconditions.md) |  |
 |  [currentPlayerData](./engine.game.currentplayerdata.md) | <code>readonly</code> | [IGamePlayer](./engine.igameplayer.md) |  |
@@ -47,14 +47,14 @@ export declare class Game
 |  [pass](./engine.game.pass.md) |  | (playerIdx: number, cards: Array&lt;string&gt;) =&gt; void |  |
 |  [passDirection](./engine.game.passdirection.md) | <code>readonly</code> | [INextDirection](./engine.inextdirection.md) |  |
 |  [place](./engine.game.place.md) |  | (cards: Array&lt;string&gt;) =&gt; void |  |
-|  [play](./engine.game.play.md) |  | (cards: Array&lt;string&gt;, target?: [IPlayTarget](./engine.iplaytarget.md)<!-- -->, otherPlayerIdx?: number \| undefined) =&gt; void |  |
+|  [play](./engine.game.play.md) |  | (cards: Array&lt;string&gt;, target?: [IPlayTarget](./engine.iplaytarget.md)<!-- -->, otherPlayerIdx?: number) =&gt; void |  |
 |  [previousPlayedCards](./engine.game.previousplayedcards.md) | <code>readonly</code> | Array&lt;string&gt; |  |
 |  [resolveCheckCurrentUser](./engine.game.resolvecheckcurrentuser.md) |  | (conditional: [IResolveConditional](./engine.iresolveconditional.md)<!-- -->, other?: any) =&gt; any |  |
 |  [roundComplete](./engine.game.roundcomplete.md) | <code>readonly</code> | any |  |
 |  [roundWinner](./engine.game.roundwinner.md) | <code>readonly</code> | string \| undefined | <p>The round winner player id</p><p> Game</p> |
 |  [roundWon](./engine.game.roundwon.md) | <code>readonly</code> | boolean |  |
-|  [setPlayerContextFlag](./engine.game.setplayercontextflag.md) |  | (flag: string, value: [IPlayerContextValue](./engine.iplayercontextvalue.md)<!-- -->, playerIdx?: number \| undefined) =&gt; void |  |
-|  [setPlayerContextFlags](./engine.game.setplayercontextflags.md) |  | (context: [IPlayerContext](./engine.iplayercontext.md)<!-- -->, playerIdx?: number \| undefined) =&gt; void |  |
+|  [setPlayerContextFlag](./engine.game.setplayercontextflag.md) |  | (flag: string, value: [IPlayerContextValue](./engine.iplayercontextvalue.md)<!-- -->, playerIdx?: number) =&gt; void |  |
+|  [setPlayerContextFlags](./engine.game.setplayercontextflags.md) |  | (context: [IPlayerContext](./engine.iplayercontext.md)<!-- -->, playerIdx?: number) =&gt; void |  |
 |  [skip](./engine.game.skip.md) |  | () =&gt; void |  |
 |  [start](./engine.game.start.md) |  | () =&gt; "passCards" \| "start" |  |
 |  [subRoundComplete](./engine.game.subroundcomplete.md) | <code>readonly</code> | any |  |

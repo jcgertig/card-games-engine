@@ -7,7 +7,7 @@
 <b>Signature:</b>
 
 ```typescript
-export declare type IPureMathConditional = IAddConditional | ISubtractConditional | IMultiplyConditional | IDivideConditional | ISumConditional | IAvgConditional | IMaxConditional | IMinConditional | IFloorConditional | ICeilConditional | ICountConditional | IAbsConditional | IFilterConditional | IValueIfConditional;
+export type IPureMathConditional = IAddConditional | ISubtractConditional | IMultiplyConditional | IDivideConditional | ISumConditional | IAvgConditional | IMaxConditional | IMinConditional | IFloorConditional | ICeilConditional | ICountConditional | IAbsConditional | IFilterConditional | IValueIfConditional;
 ```
 <b>References:</b> [IAddConditional](./engine.iaddconditional.md)<!-- -->, [ISubtractConditional](./engine.isubtractconditional.md)<!-- -->, [IMultiplyConditional](./engine.imultiplyconditional.md)<!-- -->, [IDivideConditional](./engine.idivideconditional.md)<!-- -->, [ISumConditional](./engine.isumconditional.md)<!-- -->, [IAvgConditional](./engine.iavgconditional.md)<!-- -->, [IMaxConditional](./engine.imaxconditional.md)<!-- -->, [IMinConditional](./engine.iminconditional.md)<!-- -->, [IFloorConditional](./engine.ifloorconditional.md)<!-- -->, [ICeilConditional](./engine.iceilconditional.md)<!-- -->, [ICountConditional](./engine.icountconditional.md)<!-- -->, [IAbsConditional](./engine.iabsconditional.md)<!-- -->, [IFilterConditional](./engine.ifilterconditional.md)<!-- -->, [IValueIfConditional](./engine.ivalueifconditional.md)
 

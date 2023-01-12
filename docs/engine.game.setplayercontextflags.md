@@ -7,5 +7,5 @@
 <b>Signature:</b>
 
 ```typescript
-setPlayerContextFlags: (context: IPlayerContext, playerIdx?: number | undefined) => void;
+setPlayerContextFlags: (context: IPlayerContext, playerIdx?: number) => void;
 ```

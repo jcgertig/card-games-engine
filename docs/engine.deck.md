@@ -21,6 +21,6 @@ export declare class Deck
 |  Property | Modifiers | Type | Description |
 |  --- | --- | --- | --- |
 |  [cardsLeft](./engine.deck.cardsleft.md) | <code>readonly</code> | [Card](./engine.card.md)<!-- -->\[\] |  |
-|  [createAndShuffle](./engine.deck.createandshuffle.md) |  | (count: number) =&gt; void |  |
 |  [deal](./engine.deck.deal.md) |  | (config: { perPerson?: 'even' \| number; toTable?: number; }, personCount: number) =&gt; { players: string\[\]\[\]; table: string\[\]; } |  |
+|  [shuffle](./engine.deck.shuffle.md) |  | () =&gt; void |  |
 

@@ -47,10 +47,9 @@ export interface IPokerDeckConfig extends IDeckConfigBase {
   suitPriority?: 'standard' | Array<PokerSuits>; // defaults to 'standard'
   cardPriority?: 'standard' | Array<PokerCards>; // defaults to 'standard'
   cardPointValues?: number | IPokerCardPointValues; // defaults to 0
-  joker?: {
-    count: number;
-    role: 'wild' | 'point';
-  };
+  wildCard?: PokerCards;
+  wildCardMaxGap?: number | null;
+  jokerCount?: number;
 }
 export interface IHwatuDeckConfig extends IDeckConfigBase {
   type: 'hwatu';

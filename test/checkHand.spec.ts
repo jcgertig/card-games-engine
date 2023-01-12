@@ -44,15 +44,19 @@ describe('validPokerHand', () => {
   });
 
   test('five cards to not be valid (AH,2S,3C,6D,5H)', () => {
-    expect(validPokerHand(['AH', '2S', '3C', '6D', '5H'], deuces.deck)).toEqual(
-      false
-    );
+    try {
+      validPokerHand(['AH', '2S', '3C', '6D', '5H'], deuces.deck);
+    } catch (err: any) {
+      expect(err?.message).toEqual('Missing cards for a valid straight');
+    }
   });
 
   test('five cards to not be valid starting with an ace (AH,3S,4C,5D,6H)', () => {
-    expect(validPokerHand(['AH', '3S', '4C', '5D', '6H'], deuces.deck)).toEqual(
-      false
-    );
+    try {
+      validPokerHand(['AH', '3S', '4C', '5D', '6H'], deuces.deck);
+    } catch (err: any) {
+      expect(err?.message).toEqual('Missing cards for a valid straight');
+    }
   });
 });
 
@@ -61,34 +65,32 @@ describe('validHand', () => {
     expect(validHand([], ['any'], deuces.deck)).toEqual(true);
   });
 
-  test('should return true for "1" hand', () => {
-    expect(validHand(['AH'], ['1'], deuces.deck)).toEqual(true);
+  test('should return true for 1 hand', () => {
+    expect(validHand(['AH'], [1], deuces.deck)).toEqual(true);
   });
-  test('should return false for one card and only "2" allowed hand', () => {
-    expect(validHand(['AH'], ['2'], deuces.deck)).toEqual(false);
-  });
-
-  test('should return true for "2" hand', () => {
-    expect(validHand(['AH', 'AS'], ['2'], deuces.deck)).toEqual(true);
-  });
-  test('should return false for two cards and only "1" allowed hand', () => {
-    expect(validHand(['AH', 'AS'], ['1'], deuces.deck)).toEqual(false);
+  test('should return false for one card and only 2 allowed hand', () => {
+    expect(validHand(['AH'], [2], deuces.deck)).toEqual(false);
   });
 
-  test('should return true for "3" hand', () => {
-    expect(validHand(['AH', 'AS', 'AD'], ['3'], deuces.deck)).toEqual(true);
+  test('should return true for 2 hand', () => {
+    expect(validHand(['AH', 'AS'], [2], deuces.deck)).toEqual(true);
   });
-  test('should return false for two cards and only "2" allowed hand', () => {
-    expect(validHand(['AH', 'AS', 'AD'], ['2'], deuces.deck)).toEqual(false);
+  test('should return false for two cards and only 1 allowed hand', () => {
+    expect(validHand(['AH', 'AS'], [1], deuces.deck)).toEqual(false);
   });
 
-  test('should return true for "4" hand', () => {
-    expect(validHand(['AH', 'AS', 'AD', 'AC'], ['4'], deuces.deck)).toEqual(
-      true
-    );
+  test('should return true for 3 hand', () => {
+    expect(validHand(['AH', 'AS', 'AD'], [3], deuces.deck)).toEqual(true);
   });
-  test('should return false for two cards and only "3" allowed hand', () => {
-    expect(validHand(['AH', 'AS', 'AD', 'AC'], ['3'], deuces.deck)).toEqual(
+  test('should return false for two cards and only 2 allowed hand', () => {
+    expect(validHand(['AH', 'AS', 'AD'], [2], deuces.deck)).toEqual(false);
+  });
+
+  test('should return true for 4 hand', () => {
+    expect(validHand(['AH', 'AS', 'AD', 'AC'], [4], deuces.deck)).toEqual(true);
+  });
+  test('should return false for two cards and only 3 allowed hand', () => {
+    expect(validHand(['AH', 'AS', 'AD', 'AC'], [3], deuces.deck)).toEqual(
       false
     );
   });
@@ -98,14 +100,79 @@ describe('validHand', () => {
       validHand(['AH', 'AS', 'AD', 'AC', '2C'], ['poker'], deuces.deck)
     ).toEqual(true);
   });
-  test('should return false bad poker hand', () => {
+  test('should error bad poker hand', () => {
+    try {
+      validHand(['AH', 'AS', 'AD', '3C', '2C'], ['poker'], deuces.deck);
+    } catch (err: any) {
+      expect(err?.message).toEqual('Can not have sets in a straight');
+    }
+  });
+  test('should return false for five cards and only 4 allowed hand', () => {
+    expect(validHand(['AH', 'AS', 'AD', 'AC', '2C'], [4], deuces.deck)).toEqual(
+      false
+    );
+  });
+
+  test('should return true for "straight" flush of length 4 min length 3 hand', () => {
     expect(
-      validHand(['AH', 'AS', 'AD', '3C', '2C'], ['poker'], deuces.deck)
+      validHand(
+        ['AH', 'KH', 'QH', 'JH'],
+        [{ kind: 'straight', count: 3, allowMore: true, flush: true }],
+        deuces.deck
+      )
+    ).toEqual(true);
+  });
+
+  test('should return true for "straight" of length 3 hand', () => {
+    expect(
+      validHand(
+        ['AH', 'KC', 'QS'],
+        [{ kind: 'straight', count: 3 }],
+        deuces.deck
+      )
+    ).toEqual(true);
+  });
+
+  test('should return false for "straight" flush of length 4 fixed length 3 hand', () => {
+    expect(
+      validHand(
+        ['AH', 'KH', 'QH', 'JH'],
+        [{ kind: 'straight', count: 3, allowMore: false, flush: true }],
+        deuces.deck
+      )
     ).toEqual(false);
   });
-  test('should return false for five cards and only "4" allowed hand', () => {
+
+  test('should return false for "straight" not flush of length 4 hand', () => {
     expect(
-      validHand(['AH', 'AS', 'AD', 'AC', '2C'], ['4'], deuces.deck)
+      validHand(
+        ['AH', 'KH', 'QC', 'JD'],
+        [{ kind: 'straight', count: 4, flush: true }],
+        deuces.deck
+      )
     ).toEqual(false);
+  });
+
+  test('should return true for "straight" flush of with a Joker 3 hand', () => {
+    expect(
+      validHand(
+        ['AH', 'Joker', 'QH', 'JH'],
+        [{ kind: 'straight', count: 3, allowMore: true, flush: true }],
+        deuces.deck
+      )
+    ).toEqual(true);
+  });
+  test('should return false for "straight" flush with 2 Jokers hand', () => {
+    try {
+      validHand(
+        ['AH', 'Joker', 'Joker', 'JH'],
+        [{ kind: 'straight', count: 3, allowMore: true, flush: true }],
+        deuces.deck
+      );
+    } catch (err: any) {
+      expect(err?.message).toEqual(
+        'Can not have more than 1 wild card(s) in a row'
+      );
+    }
   });
 });

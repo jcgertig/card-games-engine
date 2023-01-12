@@ -42,7 +42,7 @@ export const bids: IGameConfig = {
           direction: 'clockwise',
         },
         playerPlayConditions: {
-          hands: ['1'],
+          hands: [1],
           guards: {
             condition: 'if',
             left: {
@@ -118,7 +118,7 @@ export const bids: IGameConfig = {
                 direction: 'clockwise',
               },
               playerPlayConditions: {
-                hands: ['1'],
+                hands: [1],
                 guards: {
                   condition: 'if',
                   left: {
@@ -164,7 +164,7 @@ export const bids: IGameConfig = {
                 },
               },
               firstPlayerPlayConditions: {
-                hands: ['1'],
+                hands: [1],
                 guards: {
                   condition: 'if',
                   left: {

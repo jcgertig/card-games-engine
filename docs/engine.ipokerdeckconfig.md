@@ -17,7 +17,9 @@ export interface IPokerDeckConfig extends IDeckConfigBase
 |  --- | --- | --- | --- |
 |  [cardPointValues?](./engine.ipokerdeckconfig.cardpointvalues.md) |  | number \| [IPokerCardPointValues](./engine.ipokercardpointvalues.md) | <i>(Optional)</i> |
 |  [cardPriority?](./engine.ipokerdeckconfig.cardpriority.md) |  | 'standard' \| Array&lt;[PokerCards](./engine.pokercards.md)<!-- -->&gt; | <i>(Optional)</i> |
-|  [joker?](./engine.ipokerdeckconfig.joker.md) |  | { count: number; role: 'wild' \| 'point'; } | <i>(Optional)</i> |
+|  [jokerCount?](./engine.ipokerdeckconfig.jokercount.md) |  | number | <i>(Optional)</i> |
 |  [suitPriority?](./engine.ipokerdeckconfig.suitpriority.md) |  | 'standard' \| Array&lt;[PokerSuits](./engine.pokersuits.md)<!-- -->&gt; | <i>(Optional)</i> |
 |  [type](./engine.ipokerdeckconfig.type.md) |  | 'poker' |  |
+|  [wildCard?](./engine.ipokerdeckconfig.wildcard.md) |  | [PokerCards](./engine.pokercards.md) | <i>(Optional)</i> |
+|  [wildCardMaxGap?](./engine.ipokerdeckconfig.wildcardmaxgap.md) |  | number \| null | <i>(Optional)</i> |
 

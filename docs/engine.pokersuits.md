@@ -7,5 +7,5 @@
 <b>Signature:</b>
 
 ```typescript
-export declare type PokerSuits = 'S' | 'H' | 'C' | 'D';
+export type PokerSuits = 'S' | 'H' | 'C' | 'D';
 ```

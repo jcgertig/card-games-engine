@@ -1,4 +1,4 @@
-import { IPlayTarget } from '../types/game-config';
+import { IPlayTarget, IValidHands } from '../types/game-config';
 import { Game } from './game';
 
 function uniqueCombinations(input: Array<string>, len: number) {
@@ -39,10 +39,14 @@ export function findPlayableHand(
   let options: Array<Array<string>> = [];
   if (lastPlayedCards.length > 0) {
     options = uniqueCombinations(playerHand, lastPlayedCards.length);
-    for (const option of options) {
-      if (game.checkAllowedPlay(option, target)) {
-        return option;
+    try {
+      for (const option of options) {
+        if (game.checkAllowedPlay(option, target)) {
+          return option;
+        }
       }
+    } catch (err) {
+      // noop
     }
     return null;
   }
@@ -50,50 +54,38 @@ export function findPlayableHand(
   // never played before
   const conditions = game.currentPlayConditions;
   const checked: any[] = [];
-  const ifCheck = (inc: string, handInc?: string) =>
+  const ifCheck = (inc: IValidHands, handInc?: IValidHands) =>
     !checked.includes(inc) &&
     options.length === 0 &&
     (conditions.hands.includes(handInc || (inc as any)) ||
       conditions.hands.includes('any'));
-  const elseCheck = (inc: string, handInc?: string) =>
+  const elseCheck = (inc: IValidHands, handInc?: IValidHands) =>
     !checked.includes(inc) &&
     !conditions.hands.includes(handInc || (inc as any));
 
+  const check = (inc: number, handInc?: IValidHands) => {
+    if (ifCheck(inc, handInc)) {
+      checked.push(inc);
+      options = uniqueCombinations(playerHand, inc);
+    } else if (elseCheck(inc, handInc)) {
+      checked.push(inc);
+    }
+  };
+
   while (checked.length < 5) {
-    if (ifCheck('5', 'poker')) {
-      checked.push('5');
-      options = uniqueCombinations(playerHand, 5);
-    } else if (elseCheck('5', 'poker')) {
-      checked.push('5');
-    }
-    if (ifCheck('4')) {
-      checked.push('4');
-      options = uniqueCombinations(playerHand, 4);
-    } else if (elseCheck('4')) {
-      checked.push('4');
-    }
-    if (ifCheck('3')) {
-      checked.push('3');
-      options = uniqueCombinations(playerHand, 3);
-    } else if (elseCheck('3')) {
-      checked.push('3');
-    }
-    if (ifCheck('2')) {
-      checked.push('2');
-      options = uniqueCombinations(playerHand, 2);
-    } else if (elseCheck('2')) {
-      checked.push('2');
-    }
-    if (ifCheck('1')) {
-      checked.push('1');
-      options = uniqueCombinations(playerHand, 1);
-    } else if (elseCheck('1')) {
-      checked.push('1');
-    }
+    check(5, 'poker');
+    check(4);
+    check(3);
+    check(2);
+    check(1);
 
     for (const option of options) {
-      if (game.checkAllowedPlay(option, target)) {
-        return option;
+      try {
+        if (game.checkAllowedPlay(option, target)) {
+          return option;
+        }
+      } catch (err) {
+        // NOOP
       }
     }
     options = [];

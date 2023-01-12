@@ -7,7 +7,7 @@
 <b>Signature:</b>
 
 ```typescript
-export declare type IResolveConditional = IConditional | string | number | boolean | Array<any>;
+export type IResolveConditional = IConditional | string | number | boolean | Array<any>;
 ```
 <b>References:</b> [IConditional](./engine.iconditional.md)
 

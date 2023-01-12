@@ -11,7 +11,7 @@ even and odd bot yet supported
 <b>Signature:</b>
 
 ```typescript
-export declare type OrderEntryConfig<T = any> = {
+export type OrderEntryConfig<T = any> = {
     '*'?: T;
     odd?: T;
     even?: T;

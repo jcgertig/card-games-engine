@@ -7,7 +7,7 @@
 <b>Signature:</b>
 
 ```typescript
-export declare type PokerPointValueConfig = number | {
+export type PokerPointValueConfig = number | {
     S: number;
     H: number;
     C: number;

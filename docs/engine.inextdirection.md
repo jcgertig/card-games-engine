@@ -7,5 +7,5 @@
 <b>Signature:</b>
 
 ```typescript
-export declare type INextDirection = 'clockwise' | 'counter-clockwise' | 'left' | 'right' | 'across' | 'none';
+export type INextDirection = 'clockwise' | 'counter-clockwise' | 'left' | 'right' | 'across' | 'none';
 ```

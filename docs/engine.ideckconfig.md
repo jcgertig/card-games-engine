@@ -7,7 +7,7 @@
 <b>Signature:</b>
 
 ```typescript
-export declare type IDeckConfig = IPokerDeckConfig | IHwatuDeckConfig;
+export type IDeckConfig = IPokerDeckConfig | IHwatuDeckConfig;
 ```
 <b>References:</b> [IPokerDeckConfig](./engine.ipokerdeckconfig.md)<!-- -->, [IHwatuDeckConfig](./engine.ihwatudeckconfig.md)
 

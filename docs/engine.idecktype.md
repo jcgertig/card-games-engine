@@ -7,5 +7,5 @@
 <b>Signature:</b>
 
 ```typescript
-export declare type IDeckType = 'poker' | 'hwatu';
+export type IDeckType = 'poker' | 'hwatu';
 ```

@@ -88,10 +88,13 @@
 |  [IMathConditional](./engine.imathconditional.md) |  |
 |  [INextDirection](./engine.inextdirection.md) |  |
 |  [IPlayerContextValue](./engine.iplayercontextvalue.md) |  |
-|  [IPlayTarget](./engine.iplaytarget.md) |  |
+|  [IPlayTarget](./engine.iplaytarget.md) | Support face down cards on table / collection Support claiming colleted count with guards and turn order for claiming |
 |  [IPureMathConditional](./engine.ipuremathconditional.md) |  |
 |  [IResolveConditional](./engine.iresolveconditional.md) |  |
-|  [IValidHands](./engine.ivalidhands.md) | Support face down cards on table / collection Support claiming colleted count with guards and turn order for claiming |
+|  [IValidHands](./engine.ivalidhands.md) |  |
+|  [IValidHandSetStruct](./engine.ivalidhandsetstruct.md) |  |
+|  [IValidHandStraightStruct](./engine.ivalidhandstraightstruct.md) | Straight hand struct count must be &gt;<!-- -->= 2 |
+|  [IValidHandStruct](./engine.ivalidhandstruct.md) |  |
 |  [OrderEntryConfig](./engine.orderentryconfig.md) | <p>Intermediary type for ordered entries with fallback (\*)</p><p>even and odd bot yet supported</p> |
 |  [PokerCards](./engine.pokercards.md) |  |
 |  [PokerPointValueConfig](./engine.pokerpointvalueconfig.md) |  |

@@ -4,8 +4,10 @@
 
 ## IPlayTarget type
 
+Support face down cards on table / collection Support claiming colleted count with guards and turn order for claiming
+
 <b>Signature:</b>
 
 ```typescript
-export declare type IPlayTarget = 'table' | 'collection' | 'other-collection';
+export type IPlayTarget = 'table' | 'collection' | 'other-collection';
 ```

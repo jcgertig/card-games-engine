@@ -5,6 +5,7 @@ import {
   PokerPointValueConfig,
   PokerSuits,
 } from '../types/deck-config';
+import { POKER_JOKER } from './checkHand';
 
 const POKER_SUITS = ['S', 'H', 'C', 'D'];
 const POKER_UNITS = [
@@ -22,6 +23,7 @@ const POKER_UNITS = [
   '3',
   '2',
 ];
+
 const POKER_CARDS = POKER_SUITS.reduce<Array<string>>((res, suit) => {
   return [...res, ...POKER_UNITS.map(unit => `${unit}${suit}`)];
 }, []);
@@ -96,17 +98,19 @@ export class Card {
     this.deckConfig = deckConfig;
     this.name = name;
     if (this.deckConfig.type === 'poker') {
-      for (const suit of POKER_SUITS) {
-        if (suit === name.slice(0 - suit.length)) {
-          this.suit = suit;
-          this.unit = name.slice(0, name.length - suit.length);
-          const map = pokerPointValue(
-            this.deckConfig.cardPointValues,
-            this.unit
-          );
-          const cardPriority = pokerPriority(this.deckConfig.cardPriority);
-          this.pointValue = typeof map === 'number' ? map : map[this.suit];
-          this.unitPriority = cardPriority.indexOf(this.unit as PokerCards);
+      if (this.name !== POKER_JOKER) {
+        for (const suit of POKER_SUITS) {
+          if (suit === name.slice(0 - suit.length)) {
+            this.suit = suit;
+            this.unit = name.slice(0, name.length - suit.length);
+            const map = pokerPointValue(
+              this.deckConfig.cardPointValues,
+              this.unit
+            );
+            const cardPriority = pokerPriority(this.deckConfig.cardPriority);
+            this.pointValue = typeof map === 'number' ? map : map[this.suit];
+            this.unitPriority = cardPriority.indexOf(this.unit as PokerCards);
+          }
         }
       }
     }
@@ -116,10 +120,10 @@ export class Card {
 function cardsForDeck(config: IDeckConfig) {
   let cards: Array<string> = [];
   if (config.type === 'poker') {
-    cards = [...POKER_CARDS];
-    if (config.joker) {
-      cards = [...cards, ...new Array(config.joker.count || 0).fill('Joker')];
-    }
+    cards = [
+      ...POKER_CARDS,
+      ...new Array(config.jokerCount || 0).fill(POKER_JOKER),
+    ];
   } else if (config.type === 'hwatu') {
     // todo handle hwatu decks
   }
@@ -142,18 +146,15 @@ export class Deck {
         this.cards = [...this.cards, ...cardsForDeck(config)];
       }
     }
+    this.left = [...this.cards];
   }
 
   get cardsLeft() {
     return this.left.map(v => new Card(v, this.config));
   }
 
-  createAndShuffle = (count: number) => {
-    let cards = [...this.cards];
-    for (let i = 1; i < count; i += 1) {
-      cards = [...cards, ...this.cards];
-    }
-    this.left = shuffle(cards);
+  shuffle = () => {
+    this.left = shuffle([...this.left]);
   };
 
   deal = (

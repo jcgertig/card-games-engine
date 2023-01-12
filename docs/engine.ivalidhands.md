@@ -4,10 +4,10 @@
 
 ## IValidHands type
 
-Support face down cards on table / collection Support claiming colleted count with guards and turn order for claiming
-
 <b>Signature:</b>
 
 ```typescript
-export declare type IValidHands = '1' | '2' | '3' | '4' | 'poker' | 'any';
+export type IValidHands = 'poker' | 'any' | number | IValidHandStruct;
 ```
+<b>References:</b> [IValidHandStruct](./engine.ivalidhandstruct.md)
+

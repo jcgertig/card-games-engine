@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
-import { deuces } from '../src/games';
+import { hearts, deuces } from '../src/games';
 import { findPlayableHand } from '../src/logic/findPlayableHand';
 import { Game } from '../src/logic/game';
 
@@ -10,24 +10,29 @@ function getRoundData(game: Game, roundIdx?: number) {
   ];
 }
 
-function getGame() {
-  return new Game({ config: deuces, playerIds: ['1', '2', '3'] });
-}
-
-function getReadyGame() {
-  const game = getGame();
-  game.addPlayer('4');
-  game.start();
-  return game;
+function getGame(config) {
+  return new Game({ config, playerIds: ['1', '2', '3'] });
 }
 
 describe('Game class (deuces)', () => {
+  let game = getGame(deuces);
+
+  function getReadyGame() {
+    const game = getGame(deuces);
+    game.addPlayer('4');
+    game.start();
+    return game;
+  }
+
+  beforeEach(() => {
+    game = getGame(deuces);
+  });
+
   test('create new Game', () => {
-    expect(getGame()).toBeInstanceOf(Game);
+    expect(game).toBeInstanceOf(Game);
   });
 
   test('should error without the minimum number of players', () => {
-    const game = getGame();
     try {
       game.start();
       expect(true).toEqual(false);
@@ -37,13 +42,11 @@ describe('Game class (deuces)', () => {
   });
 
   test('should be able to add a player when less the the max', () => {
-    const game = getGame();
     game.addPlayer('4');
     expect(game.asJSON().playerIds).toEqual(['1', '2', '3', '4']);
   });
 
   test('should be not able to add a player when more the the max', () => {
-    const game = getGame();
     game.addPlayer('4');
     expect(game.asJSON().playerIds).toEqual(['1', '2', '3', '4']);
     try {
@@ -55,7 +58,6 @@ describe('Game class (deuces)', () => {
   });
 
   test('should be able to start a game', () => {
-    const game = getGame();
     game.addPlayer('4');
     try {
       game.start();
@@ -163,4 +165,138 @@ describe('Game class (deuces)', () => {
     }
     expect(typeof game.winner).toEqual('string');
   });
+});
+
+describe('Game class (hearts)', () => {
+  let game = getGame(hearts);
+
+  function getReadyGame() {
+    const game = getGame(hearts);
+    game.addPlayer('4');
+    game.start();
+    return game;
+  }
+
+  beforeEach(() => {
+    game = getGame(hearts);
+  });
+
+  test('create new Game', () => {
+    expect(game).toBeInstanceOf(Game);
+  });
+
+  test('should error without the minimum number of players', () => {
+    try {
+      game.start();
+      expect(true).toEqual(false);
+    } catch (error) {
+      expect((error as any).message).toEqual('Not able to start the game');
+    }
+  });
+
+  test('should be able to add a player when less the the max', () => {
+    game.addPlayer('4');
+    expect(game.asJSON().playerIds).toEqual(['1', '2', '3', '4']);
+  });
+
+  test('should be not able to add a player when more the the max', () => {
+    game.addPlayer('4');
+    expect(game.asJSON().playerIds).toEqual(['1', '2', '3', '4']);
+    try {
+      game.addPlayer('5');
+      expect(true).toEqual(false);
+    } catch (error) {
+      expect((error as any).message).toEqual('Can no longer add players');
+    }
+  });
+
+  test('should be able to start a game', () => {
+    game.addPlayer('4');
+    try {
+      game.start();
+      expect(game.asJSON().rounds.length).toEqual(1);
+    } catch (error) {
+      expect((error as any).message).toEqual('Not able to start the game');
+    }
+  });
+
+  test('should be able to play the 2C', () => {
+    const game = getReadyGame();
+    game.play(['2C']);
+    const gameData = game.asJSON();
+    const roundData = gameData.rounds[0];
+    expect(roundData.players[roundData.firstPlayerIdx].played).toEqual([
+      ['2C'],
+    ]);
+  });
+
+  test('should fail for first play to not have 2C', () => {
+    const game = getReadyGame();
+    try {
+      game.play(['4D']);
+      expect(true).toEqual(false);
+    } catch (error) {
+      // console.log('error', error);
+      expect((error as any).message).toEqual(
+        'This type of hand is not allowed'
+      );
+    }
+  });
+
+  test('should be able to complete a play as player one', () => {
+    const game = getReadyGame();
+    game.play(['2C']);
+    game.done();
+    const roundData = getRoundData(game);
+    const nextIdx = roundData.firstPlayerIdx - 1;
+    expect(roundData.currentPlayerIdx).toEqual(
+      nextIdx < 0 ? roundData.players.length - 1 : nextIdx
+    );
+  });
+
+  test('should be not be able to skip a play as player two', () => {
+    const game = getReadyGame();
+    game.play(['2C']);
+    game.done();
+    try {
+      game.skip();
+      expect(false).toBe(true);
+    } catch (err: any) {
+      expect(err?.message).toBe('Skipping is not allowed');
+    }
+  });
+
+  // test('should be able to play a round till there is a winner', () => {
+  //   const game = getReadyGame();
+  //   let roundData = getRoundData(game, 0);
+  //   while (typeof roundData.winner === 'undefined') {
+  //     const hand = findPlayableHand(game);
+  //     if (hand === null) {
+  //       // console.log('skip');
+  //       game.skip();
+  //     } else {
+  //       // console.log('play', hand);
+  //       game.play(hand);
+  //     }
+  //     game.done();
+  //     roundData = getRoundData(game, 0);
+  //   }
+  //   expect(typeof roundData.winner).toEqual('number');
+  // });
+
+  // test('should be able to play till there is a winner', () => {
+  //   const game = getReadyGame();
+  //   while (!game.asJSON().complete) {
+  //     const hand = findPlayableHand(game);
+  //     if (hand === null) {
+  //       // console.log('skip');
+  //       game.skip();
+  //     } else {
+  //       // console.log('play', hand);
+  //       game.play(hand);
+  //     }
+  //     game.done();
+  //   }
+  //   expect(typeof game.winner).toEqual('string');
+  // });
 });
