@@ -31,13 +31,14 @@ export declare class Game
 |  [canPlay](./engine.game.canplay.md) | <code>readonly</code> | any |  |
 |  [canSkip](./engine.game.canskip.md) | <code>readonly</code> | any |  |
 |  [canStart](./engine.game.canstart.md) | <code>readonly</code> | boolean |  |
-|  [checkAllowedPlay](./engine.game.checkallowedplay.md) |  | (cards: Array&lt;string&gt;, target: [IPlayTarget](./engine.iplaytarget.md)<!-- -->, otherPlayerIdx?: number) =&gt; boolean |  |
+|  [checkAllowedPlay](./engine.game.checkallowedplay.md) |  | (cards: Array&lt;string&gt;, target: [IPlayTarget](./engine.iplaytarget.md)<!-- -->, otherPlayerIdx?: number) =&gt; any |  |
 |  [currentDealerIdx](./engine.game.currentdealeridx.md) | <code>readonly</code> | number |  |
 |  [currentPlayConditions](./engine.game.currentplayconditions.md) | <code>readonly</code> | [IRoundPlayConditions](./engine.iroundplayconditions.md) |  |
 |  [currentPlayerData](./engine.game.currentplayerdata.md) | <code>readonly</code> | [IGamePlayer](./engine.igameplayer.md) |  |
 |  [currentPlayerId](./engine.game.currentplayerid.md) | <code>readonly</code> | string |  |
 |  [currentPlayerIdx](./engine.game.currentplayeridx.md) | <code>readonly</code> | number |  |
 |  [deal](./engine.game.deal.md) |  | () =&gt; { players: string\[\]\[\]; table: string\[\]; } |  |
+|  [directPlay](./engine.game.directplay.md) |  | (cards: Array&lt;string&gt;, target?: [IPlayTarget](./engine.iplaytarget.md)<!-- -->, otherPlayerIdx?: number) =&gt; void | !WARNING! This method skips guard checks only use if you are know that it will not break the game |
 |  [discard](./engine.game.discard.md) |  | (cards: Array&lt;string&gt;) =&gt; void |  |
 |  [done](./engine.game.done.md) |  | () =&gt; void |  |
 |  [draw](./engine.game.draw.md) |  | (fromDiscard: boolean) =&gt; void |  |

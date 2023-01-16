@@ -7,5 +7,5 @@
 <b>Signature:</b>
 
 ```typescript
-checkAllowedPlay: (cards: Array<string>, target: IPlayTarget, otherPlayerIdx?: number) => boolean;
+checkAllowedPlay: (cards: Array<string>, target: IPlayTarget, otherPlayerIdx?: number) => any;
 ```

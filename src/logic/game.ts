@@ -300,15 +300,17 @@ export class Game {
   }
 
   asJSON() {
-    return {
-      config: this.config,
-      playerIds: this.playerIds,
-      points: this.points,
-      rounds: this.rounds,
-      currentRoundIdx: this.currentRoundIdx,
-      complete: this.complete,
-      winner: this.gameWinner,
-    } as IGameState;
+    return JSON.parse(
+      JSON.stringify({
+        config: this.config,
+        playerIds: this.playerIds,
+        points: this.points,
+        rounds: this.rounds,
+        currentRoundIdx: this.currentRoundIdx,
+        complete: this.complete,
+        winner: this.gameWinner,
+      })
+    ) as IGameState;
   }
 
   constructor(options: INewGameOptions | IGameOptions) {
@@ -1078,45 +1080,39 @@ export class Game {
     if (!this.canPlay) return false;
     const { hands, guards } = this.currentPlayConditions;
     if (validHand(cards, hands, this.config.deck)) {
-      const oldHand = [...this.currentPlayer.hand];
-      const oldTable = [...this.currentRound.table];
-      if (target === 'table') {
-        this.currentRound.table = [...this.currentRound.table, ...cards];
-      } else if (target === 'collection') {
-        this.currentPlayer.collected.push(cards);
-      } else if (target === 'other-collection' && otherPlayerIdx) {
-        this.currentRound.players[otherPlayerIdx].collected.push(cards);
-      }
-      this.currentPlayer.played.push(cards);
-      this.removeCardsFromHand(cards);
-
-      const resetCards = () => {
-        if (target === 'table') {
-          this.currentRound.table = oldTable;
-        } else if (target === 'collection') {
-          this.currentPlayer.collected.pop();
-        } else if (target === 'other-collection' && otherPlayerIdx) {
-          this.currentRound.players[otherPlayerIdx].collected.pop();
-        }
-        this.currentPlayer.hand = oldHand;
-        this.currentPlayer.played.pop();
-      };
-
-      if (
-        !guards ||
-        this.resolveCheck(
-          guards,
-          target === 'other-collection'
-            ? otherPlayerIdx!
-            : this.currentRound.currentPlayerIdx
-        )
-      ) {
-        resetCards();
-        return true;
-      }
-      resetCards();
+      if (!guards) return true;
+      const sandbox = new Game({ options: this.asJSON() });
+      sandbox.directPlay(cards, target, otherPlayerIdx);
+      return sandbox.resolveCheck(
+        guards,
+        target === 'other-collection'
+          ? otherPlayerIdx!
+          : this.currentRound.currentPlayerIdx
+      );
     }
     return false;
+  };
+
+  /**
+   * !WARNING! This method skips guard checks only use if you are know that it will not break the game
+   * @param cards
+   * @param target
+   * @param otherPlayerIdx
+   */
+  directPlay = (
+    cards: Array<string>,
+    target: IPlayTarget = 'table',
+    otherPlayerIdx?: number
+  ) => {
+    if (target === 'table') {
+      this.currentRound.table = [...this.currentRound.table, ...cards];
+    } else if (target === 'collection') {
+      this.currentPlayer.collected.push(cards);
+    } else if (target === 'other-collection' && otherPlayerIdx) {
+      this.currentRound.players[otherPlayerIdx].collected.push(cards);
+    }
+    this.currentPlayer.played.push(cards);
+    this.removeCardsFromHand(cards);
   };
 
   play = (
@@ -1127,15 +1123,7 @@ export class Game {
     if (!this.checkAllowedPlay(cards, target, otherPlayerIdx)) {
       throw new Error('This type of hand is not allowed');
     }
-    if (target === 'table') {
-      this.currentRound.table = [...this.currentRound.table, ...cards];
-    } else if (target === 'collection') {
-      this.currentPlayer.collected.push(cards);
-    } else if (target === 'other-collection' && otherPlayerIdx) {
-      this.currentRound.players[otherPlayerIdx].collected.push(cards);
-    }
-    this.currentPlayer.played.push(cards);
-    this.removeCardsFromHand(cards);
+    this.directPlay(cards, target, otherPlayerIdx);
   };
 
   get canCall() {
