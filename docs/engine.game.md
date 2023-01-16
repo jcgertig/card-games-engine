@@ -52,7 +52,6 @@ export declare class Game
 |  [previousPlayedCards](./engine.game.previousplayedcards.md) | <code>readonly</code> | Array&lt;string&gt; |  |
 |  [resolveCheckCurrentUser](./engine.game.resolvecheckcurrentuser.md) |  | (conditional: [IResolveConditional](./engine.iresolveconditional.md)<!-- -->, other?: any) =&gt; any |  |
 |  [roundComplete](./engine.game.roundcomplete.md) | <code>readonly</code> | any |  |
-|  [roundWinner](./engine.game.roundwinner.md) | <code>readonly</code> | string \| undefined | <p>The round winner player id</p><p> Game</p> |
 |  [roundWon](./engine.game.roundwon.md) | <code>readonly</code> | boolean |  |
 |  [setPlayerContextFlag](./engine.game.setplayercontextflag.md) |  | (flag: string, value: [IPlayerContextValue](./engine.iplayercontextvalue.md)<!-- -->, playerIdx?: number) =&gt; void |  |
 |  [setPlayerContextFlags](./engine.game.setplayercontextflags.md) |  | (context: [IPlayerContext](./engine.iplayercontext.md)<!-- -->, playerIdx?: number) =&gt; void |  |
@@ -60,11 +59,12 @@ export declare class Game
 |  [start](./engine.game.start.md) |  | () =&gt; "passCards" \| "start" |  |
 |  [subRoundComplete](./engine.game.subroundcomplete.md) | <code>readonly</code> | any |  |
 |  [useSubRounds](./engine.game.usesubrounds.md) | <code>readonly</code> | boolean |  |
-|  [winner](./engine.game.winner.md) | <code>readonly</code> | string \| undefined | <p>The game winner playe id</p><p> Game</p> |
+|  [winner](./engine.game.winner.md) | <code>readonly</code> | string \| undefined | <p>The game winner player id</p><p> Game</p> |
 
 ## Methods
 
 |  Method | Modifiers | Description |
 |  --- | --- | --- |
 |  [asJSON()](./engine.game.asjson.md) |  |  |
+|  [getRoundWinner(roundIdx)](./engine.game.getroundwinner.md) |  | <p>The round winner player id</p><p> Game</p> |
 

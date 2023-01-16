@@ -4,7 +4,7 @@
 
 ## Game.winner property
 
-The game winner playe id
+The game winner player id
 
  Game
 

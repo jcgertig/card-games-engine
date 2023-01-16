@@ -152,7 +152,7 @@ export class Game {
   private gameWinner: number | undefined;
 
   /**
-   * The game winner playe id
+   * The game winner player id
    *
    * @readonly
    * @memberof Game
@@ -169,9 +169,10 @@ export class Game {
    * @readonly
    * @memberof Game
    */
-  get roundWinner() {
-    return typeof this.currentRound.winner === 'number'
-      ? this.playerIds[this.currentRound.winner]
+  getRoundWinner(roundIdx: number) {
+    return this.rounds[roundIdx] &&
+      typeof this.rounds[roundIdx].winner !== 'undefined'
+      ? this.playerIds[this.rounds[roundIdx].winner!]
       : undefined;
   }
 
@@ -180,15 +181,15 @@ export class Game {
   }
 
   get currentPlayerId() {
-    return this.playerIds[this.currentRound.currentPlayerIdx];
+    return this.playerIds[this.currentRound?.currentPlayerIdx];
   }
 
   get currentPlayerIdx() {
-    return this.currentRound.currentPlayerIdx;
+    return this.currentRound?.currentPlayerIdx;
   }
 
   get currentDealerIdx() {
-    return this.currentRound.dealerIdx;
+    return this.currentRound?.dealerIdx;
   }
 
   private get playerIds() {
@@ -205,7 +206,7 @@ export class Game {
 
   private get currentRound() {
     const round = this.rounds[this.currentRoundIdx];
-    if (this.useSubRounds) return round.subRounds[round.subRoundIdx];
+    if (this.useSubRounds) return round?.subRounds[round?.subRoundIdx];
     return this.rounds[this.currentRoundIdx];
   }
 
@@ -224,7 +225,8 @@ export class Game {
     return JSON.parse(
       JSON.stringify(
         this.currentRound.turnIdx === 0
-          ? roundConfig.firstPlayerPlayConditions
+          ? roundConfig.firstPlayerPlayConditions ||
+              roundConfig.playerPlayConditions
           : roundConfig.playerPlayConditions
       )
     ) as IRoundPlayConditions;
@@ -235,7 +237,8 @@ export class Game {
     return JSON.parse(
       JSON.stringify(
         this.currentRound.turnIdx === 0
-          ? roundConfig.firstPlayerPlayConditions
+          ? roundConfig.firstPlayerPlayConditions ||
+              roundConfig.playerPlayConditions
           : roundConfig.playerPlayConditions
       )
     ) as IRoundPlayConditions;
@@ -613,7 +616,7 @@ export class Game {
   };
 
   private getNextPlayer = (playerIdx: number, direction: INextDirection) => {
-    const playerCount = this.currentRound.players.length;
+    const playerCount = this.currentRealRound.players.length;
     if (direction === 'left' || direction === 'clockwise') {
       if (playerIdx === 0) {
         return playerCount - 1;
@@ -683,7 +686,6 @@ export class Game {
       roundConfig.defaultPlayerContext ||
       this.config.defaultPlayerContext ||
       {};
-
     if (roundConfig.newDeck || this.currentRoundIdx === 0) {
       const count = this.resolveCheck(this.config.deck?.count || 1, 0);
       const deck = new Deck({
@@ -720,10 +722,12 @@ export class Game {
         subRounds: [],
       });
 
-      const { players, table } = this.deal();
-      this.rounds[this.currentRoundIdx].table = table;
-      for (let i = 0; i < players.length; i += 1) {
-        this.rounds[this.currentRoundIdx].players[i].hand = players[i];
+      if (!this.useSubRounds) {
+        const { players, table } = this.deal();
+        this.rounds[this.currentRoundIdx].table = table;
+        for (let i = 0; i < players.length; i += 1) {
+          this.rounds[this.currentRoundIdx].players[i].hand = players[i];
+        }
       }
     } else {
       this.rounds.push({
@@ -755,36 +759,40 @@ export class Game {
       });
     }
 
-    const foundIdx = roundConfig.firstPlayerConditions
-      ? this.evaluateUserIdx(roundConfig.firstPlayerConditions)
-      : this.getNextPlayer(
-          newDealerIdx,
-          roundConfig.nextPlayer.direction || 'clockwise'
-        );
+    if (!this.useSubRounds) {
+      const foundIdx = roundConfig.firstPlayerConditions
+        ? this.evaluateUserIdx(roundConfig.firstPlayerConditions)
+        : this.getNextPlayer(
+            newDealerIdx,
+            roundConfig.nextPlayer.direction || 'clockwise'
+          );
 
-    if (typeof foundIdx === 'number') {
-      this.currentRound.firstPlayerIdx = foundIdx;
-      this.currentRound.currentPlayerIdx = foundIdx;
-    } else if (!this.useSubRounds) {
-      throw new Error(
-        'Failed to find a player that matches the first player conditions'
-      );
+      if (typeof foundIdx === 'number') {
+        this.currentRound.firstPlayerIdx = foundIdx;
+        this.currentRound.currentPlayerIdx = foundIdx;
+      } else {
+        throw new Error(
+          'Failed to find a player that matches the first player conditions'
+        );
+      }
     }
   };
 
   private newSubRound = () => {
     if (this.useSubRounds) {
-      this.currentRound.subRoundIdx += 1;
-      const roundConfig = this.getSubRoundConfig(this.currentRound.subRoundIdx);
+      this.currentRealRound.subRoundIdx += 1;
+      const roundConfig = this.getSubRoundConfig(
+        this.currentRealRound.subRoundIdx
+      );
 
       const newContext =
         roundConfig.defaultPlayerContext ||
         this.config.defaultPlayerContext ||
         {};
 
-      if (this.currentRound.subRoundIdx === 0) {
-        this.currentRound.subRounds.push({
-          deck: this.currentRound.deck,
+      if (this.currentRealRound.subRoundIdx === 0) {
+        this.currentRealRound.subRounds.push({
+          deck: this.currentRealRound.deck,
           turnIdx: 0,
           dealerIdx: 0,
           table: [],
@@ -813,7 +821,7 @@ export class Game {
           this.currentRound.players[i].hand = players[i];
         }
       } else {
-        this.rounds.push({
+        this.currentRealRound.subRounds.push({
           ...clone(this.previousRound!),
           deck: this.currentRound.deck,
           players: this.previousRound!.players.map(prePlayer => ({
@@ -846,6 +854,10 @@ export class Game {
       if (typeof foundIdx === 'number') {
         this.currentRound.firstPlayerIdx = foundIdx;
         this.currentRound.currentPlayerIdx = foundIdx;
+      } else {
+        throw new Error(
+          'Failed to find a player that matches the first player conditions'
+        );
       }
     }
   };

@@ -230,4 +230,5 @@ export const bids: IGameConfig = {
       right: 1,
     },
   },
+  useSubRounds: true,
 };
