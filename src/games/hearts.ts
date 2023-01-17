@@ -175,7 +175,7 @@ export const hearts: IGameConfig = {
   roundPointCalculation: {
     condition: 'sum',
     right: {
-      unit: ['player', 'collected', 'cards', 'points'],
+      unit: ['player', 'collected', 'all', 'cards', 'points'],
     },
   },
   completeConditions: {

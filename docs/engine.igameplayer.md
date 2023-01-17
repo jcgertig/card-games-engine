@@ -16,7 +16,7 @@ export interface IGamePlayer
 |  --- | --- | --- | --- |
 |  [callCount](./engine.igameplayer.callcount.md) |  | number |  |
 |  [called](./engine.igameplayer.called.md) |  | Array&lt;Array&lt;string&gt;&gt; |  |
-|  [collected](./engine.igameplayer.collected.md) |  | Array&lt;Array&lt;string&gt;&gt; |  |
+|  [collected](./engine.igameplayer.collected.md) |  | { all: Array&lt;Array&lt;string&gt;&gt;; \[key: string\]: Array&lt;Array&lt;string&gt;&gt;; } |  |
 |  [context](./engine.igameplayer.context.md) |  | Record&lt;string, string \| number \| boolean&gt; |  |
 |  [hand](./engine.igameplayer.hand.md) |  | Array&lt;string&gt; |  |
 |  [played](./engine.igameplayer.played.md) |  | Array&lt;Array&lt;string&gt;&gt; |  |

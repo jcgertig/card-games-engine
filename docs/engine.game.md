@@ -38,7 +38,7 @@ export declare class Game
 |  [currentPlayerId](./engine.game.currentplayerid.md) | <code>readonly</code> | string |  |
 |  [currentPlayerIdx](./engine.game.currentplayeridx.md) | <code>readonly</code> | number |  |
 |  [deal](./engine.game.deal.md) |  | () =&gt; { players: string\[\]\[\]; table: string\[\]; } |  |
-|  [directPlay](./engine.game.directplay.md) |  | (cards: Array&lt;string&gt;, target?: [IPlayTarget](./engine.iplaytarget.md)<!-- -->, otherPlayerIdx?: number) =&gt; void | !WARNING! This method skips guard checks only use if you are know that it will not break the game |
+|  [directPlay](./engine.game.directplay.md) |  | (cards: Array&lt;string&gt;, target?: [IPlayTarget](./engine.iplaytarget.md)<!-- -->, otherPlayerIdx?: number, collectionKey?: string) =&gt; void | !WARNING! This method skips guard checks only use if you are know that it will not break the game |
 |  [discard](./engine.game.discard.md) |  | (cards: Array&lt;string&gt;) =&gt; void |  |
 |  [done](./engine.game.done.md) |  | () =&gt; void |  |
 |  [draw](./engine.game.draw.md) |  | (fromDiscard: boolean) =&gt; void |  |
@@ -47,7 +47,7 @@ export declare class Game
 |  [isActive](./engine.game.isactive.md) | <code>readonly</code> | boolean |  |
 |  [pass](./engine.game.pass.md) |  | (playerIdx: number, cards: Array&lt;string&gt;) =&gt; void |  |
 |  [passDirection](./engine.game.passdirection.md) | <code>readonly</code> | [INextDirection](./engine.inextdirection.md) |  |
-|  [place](./engine.game.place.md) |  | (cards: Array&lt;string&gt;) =&gt; void |  |
+|  [place](./engine.game.place.md) |  | (cards: Array&lt;string&gt;, collectionKey?: string) =&gt; void |  |
 |  [play](./engine.game.play.md) |  | (cards: Array&lt;string&gt;, target?: [IPlayTarget](./engine.iplaytarget.md)<!-- -->, otherPlayerIdx?: number) =&gt; void |  |
 |  [previousPlayedCards](./engine.game.previousplayedcards.md) | <code>readonly</code> | Array&lt;string&gt; |  |
 |  [resolveCheckCurrentUser](./engine.game.resolvecheckcurrentuser.md) |  | (conditional: [IResolveConditional](./engine.iresolveconditional.md)<!-- -->, other?: any) =&gt; any |  |

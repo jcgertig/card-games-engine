@@ -38,7 +38,7 @@ export interface IGameState {
 export interface IGamePlayer {
   hand: Array<string>;
   played: Array<Array<string>>;
-  collected: Array<Array<string>>;
+  collected: { all: Array<Array<string>>; [key: string]: Array<Array<string>> };
   skipped: boolean;
   points: number;
   callCount: number;
@@ -703,16 +703,16 @@ export class Game {
         players: new Array(this.playerIdsInternal.size).fill('').map(() =>
           roundConfig.subRounds
             ? ({ points: 0 } as any)
-            : {
+            : ({
                 hand: [],
                 played: [],
-                collected: [],
+                collected: { all: [] },
                 skipped: false,
                 points: 0,
                 callCount: 0,
                 called: [],
                 context: newContext,
-              }
+              } as IGamePlayer)
         ),
         firstPlayerIdx: 0,
         previousPlayerIdx: [],
@@ -736,16 +736,16 @@ export class Game {
         players: this.previousRealRound!.players.map(prePlayer =>
           roundConfig.subRounds
             ? ({ points: 0 } as any)
-            : {
+            : ({
                 hand: clone(prePlayer.hand),
                 played: [],
-                collected: [],
+                collected: { all: [] },
                 skipped: false,
                 points: 0,
                 callCount: 0,
                 called: [],
                 context: newContext,
-              }
+              } as IGamePlayer)
         ),
         turnIdx: 0,
         table: [],
@@ -797,16 +797,19 @@ export class Game {
           dealerIdx: 0,
           table: [],
           discards: [],
-          players: new Array(this.playerIdsInternal.size).fill('').map(() => ({
-            hand: [],
-            played: [],
-            collected: [],
-            skipped: false,
-            points: 0,
-            callCount: 0,
-            called: [],
-            context: newContext,
-          })),
+          players: new Array(this.playerIdsInternal.size).fill('').map(
+            () =>
+              ({
+                hand: [],
+                played: [],
+                collected: { all: [] },
+                skipped: false,
+                points: 0,
+                callCount: 0,
+                called: [],
+                context: newContext,
+              } as IGamePlayer)
+          ),
           firstPlayerIdx: 0,
           previousPlayerIdx: [],
           currentPlayerIdx: 0,
@@ -824,16 +827,19 @@ export class Game {
         this.currentRealRound.subRounds.push({
           ...clone(this.previousRound!),
           deck: this.currentRound.deck,
-          players: this.previousRound!.players.map(prePlayer => ({
-            hand: clone(prePlayer.hand),
-            played: [],
-            collected: [],
-            skipped: false,
-            points: 0,
-            callCount: 0,
-            called: [],
-            context: newContext,
-          })),
+          players: this.previousRound!.players.map(
+            prePlayer =>
+              ({
+                hand: clone(prePlayer.hand),
+                played: [],
+                collected: { all: [] },
+                skipped: false,
+                points: 0,
+                callCount: 0,
+                called: [],
+                context: newContext,
+              } as IGamePlayer)
+          ),
           turnIdx: 0,
           table: [],
           discards: [],
@@ -1114,14 +1120,28 @@ export class Game {
   directPlay = (
     cards: Array<string>,
     target: IPlayTarget = 'table',
-    otherPlayerIdx?: number
+    otherPlayerIdx?: number,
+    collectionKey?: string
   ) => {
     if (target === 'table') {
       this.currentRound.table = [...this.currentRound.table, ...cards];
     } else if (target === 'collection') {
-      this.currentPlayer.collected.push(cards);
+      this.currentPlayer.collected.all.push(cards);
+      if (collectionKey) {
+        const entry = this.currentPlayer.collected[collectionKey] || [];
+        entry.push(cards);
+        this.currentPlayer.collected[collectionKey] = entry;
+      }
     } else if (target === 'other-collection' && otherPlayerIdx) {
-      this.currentRound.players[otherPlayerIdx].collected.push(cards);
+      this.currentRound.players[otherPlayerIdx].collected.all.push(cards);
+      if (collectionKey) {
+        const entry =
+          this.currentRound.players[otherPlayerIdx].collected[collectionKey] ||
+          [];
+        entry.push(cards);
+        this.currentRound.players[otherPlayerIdx].collected[collectionKey] =
+          entry;
+      }
     }
     this.currentPlayer.played.push(cards);
     this.removeCardsFromHand(cards);
@@ -1177,7 +1197,7 @@ export class Game {
     return this.canDo('canPlace');
   }
 
-  place = (cards: Array<string>) => {
+  place = (cards: Array<string>, collectionKey?: string) => {
     if (!this.canPlace) throw new Error('Placing not allowed');
 
     const roundConfig = this.getRoundConfig();
@@ -1187,7 +1207,12 @@ export class Game {
     ) {
       throw new Error('The cards placed did not meet the required conditions');
     }
-    this.currentPlayer.collected.push(cards);
+    this.currentPlayer.collected.all.push(cards);
+    if (collectionKey) {
+      const entry = this.currentPlayer.collected[collectionKey] || [];
+      entry.push(cards);
+      this.currentPlayer.collected[collectionKey] = entry;
+    }
     this.removeCardsFromHand(cards);
   };
 

@@ -64,6 +64,6 @@
 ## Win conditions
   - [player] [points] [least of] [all] [player] [points]
 ## Points calculated
-  - [sum] [player] [collected] [card(s)] [points]
+  - [sum] [player] [collected] [all] [card(s)] [points]
 ## Game completed conditions
   - [all] [player] [points] [any greater then or equal to] [100]

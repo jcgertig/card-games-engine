@@ -9,5 +9,5 @@
 <b>Signature:</b>
 
 ```typescript
-directPlay: (cards: Array<string>, target?: IPlayTarget, otherPlayerIdx?: number) => void;
+directPlay: (cards: Array<string>, target?: IPlayTarget, otherPlayerIdx?: number, collectionKey?: string) => void;
 ```

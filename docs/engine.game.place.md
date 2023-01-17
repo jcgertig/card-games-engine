@@ -7,5 +7,5 @@
 <b>Signature:</b>
 
 ```typescript
-place: (cards: Array<string>) => void;
+place: (cards: Array<string>, collectionKey?: string) => void;
 ```

@@ -7,5 +7,8 @@
 <b>Signature:</b>
 
 ```typescript
-collected: Array<Array<string>>;
+collected: {
+        all: Array<Array<string>>;
+        [key: string]: Array<Array<string>>;
+    };
 ```
