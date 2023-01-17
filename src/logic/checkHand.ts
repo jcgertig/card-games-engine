@@ -156,9 +156,22 @@ export function validHand(
   allowedHands: Array<IValidHands>,
   deckConfig?: IDeckConfig
 ) {
-  if (allowedHands.includes('any')) return true;
-  if (cards.length === 5 && allowedHands.includes('poker'))
-    return validPokerHand(cards, deckConfig);
+  return evaluateHandType(cards, allowedHands, deckConfig) !== 'none';
+}
+
+/**
+ * Checks if a hand is valid and return the type it is
+ * @param cards
+ * @param allowedHands
+ * @param deckConfig
+ * @returns 'none' | 'any' | 'set' | 'straight' | 'poker'
+ */
+export function evaluateHandType(
+  cards: Array<string>,
+  allowedHands: Array<IValidHands>,
+  deckConfig?: IDeckConfig
+) {
+  if (allowedHands.includes('any')) return 'any';
 
   const wildCard = (deckConfig as any)?.wildCard;
 
@@ -199,7 +212,9 @@ export function validHand(
   );
 
   if (structs.set.length > 0 && mapped.units.size === 1)
-    return matchSetRules(cards.length, structs.set as IValidHandSetStruct[]);
+    return matchSetRules(cards.length, structs.set as IValidHandSetStruct[])
+      ? 'set'
+      : 'none';
 
   if (
     structs.straight.length > 0 &&
@@ -209,7 +224,12 @@ export function validHand(
       mapped.cards,
       mapped.suits.size === 1,
       structs.straight as IValidHandStraightStruct[]
-    );
+    )
+      ? 'straight'
+      : 'none';
 
-  return false;
+  if (cards.length === 5 && allowedHands.includes('poker'))
+    return validPokerHand(cards, deckConfig) ? 'poker' : 'none';
+
+  return 'none';
 }
